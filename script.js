@@ -8,6 +8,7 @@ const boardDiv = document.getElementById("board");
 const msg = document.querySelector(".turn");
 const setupDiv = document.getElementById("player-setup");
 const startBtn = document.getElementById("start-btn");
+const newGameBtn = document.getElementById("new-game-btn");
 
 function createBoard() {
     boardDiv.innerHTML = "";
@@ -44,6 +45,27 @@ function startGame() {
     msg.style.display = "block";
     setTurnMessage(currentPlayer, `${playerNames[currentPlayer]}'s turn! Drop your disc.`);
     createBoard();
+    if (newGameBtn) {
+        newGameBtn.style.display = "inline-block";
+        newGameBtn.innerText = "Restart Game";
+    }
+}
+
+function resetBoard(keepNames = true) {
+    // reset internal board state and UI while keeping player names
+    board = Array.from({ length: ROWS }, () => Array(COLS).fill(""));
+    // clear UI tiles
+    for (let c = 0; c < boardDiv.children.length; c++) {
+        const colDiv = boardDiv.children[c];
+        for (let r = 0; r < colDiv.children.length; r++) {
+            const tile = colDiv.children[r];
+            tile.style.backgroundColor = "";
+        }
+    }
+    currentPlayer = "red";
+    gameActive = true;
+    setTurnMessage(currentPlayer, `${playerNames[currentPlayer]}'s turn! Drop your disc.`);
+    if (newGameBtn) newGameBtn.innerText = "Restart Game";
 }
 
 function dropPiece(colIdx) {
@@ -55,9 +77,11 @@ function dropPiece(colIdx) {
             if (checkWin(r, colIdx)) {
                 setTurnMessage(currentPlayer, `${playerNames[currentPlayer]} wins! Congratulations! 🏆`);
                 gameActive = false;
+                if (newGameBtn) newGameBtn.innerText = "New Game";
             } else if (board.flat().every(cell => cell)) {
                 setTurnMessage("draw", "It's a draw! Well played both! 🤝");
                 gameActive = false;
+                if (newGameBtn) newGameBtn.innerText = "New Game";
             } else {
                 currentPlayer = currentPlayer === "red" ? "yellow" : "red";
                 setTurnMessage(currentPlayer, ` ${playerNames[currentPlayer]}'s turn! Drop your disc.`);
@@ -98,6 +122,16 @@ function checkWin(row, col) {
 }
 
 startBtn.onclick = startGame;
+if (newGameBtn) {
+    newGameBtn.onclick = function() {
+        if (!gameActive) {
+            createBoard();
+            resetBoard(true);
+        } else {
+            resetBoard(true);
+        }
+    };
+}
 boardDiv.onclick = function(e) {
     if (!gameActive) return;
     const colDiv = e.target.closest(".column");
