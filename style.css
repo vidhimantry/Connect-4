@@ -152,6 +152,64 @@ footer {
     text-align: center;
 }
 
+.top-right-btn {
+    position: fixed;
+    top: 18px;
+    right: 18px;
+    padding: 8px 14px;
+    border-radius: 10px;
+    background: linear-gradient(90deg, #4a4ac6 60%, #6366f1 100%);
+    color: #fff;
+    border: none;
+    font-size: 1.3rem;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 6px 18px rgba(74,74,198,0.18);
+    z-index: 40;
+    display: none;
+}
+
+.top-right-btn:hover { transform: translateY(-2px); }
+
+@media (max-width: 480px) {
+    .top-right-btn {
+        font-size: 1rem;
+        padding: 8px 10px;
+        top: 12px;
+        right: 12px;
+        min-width: 44px;
+        min-height: 44px;
+    }
+}
+
+@media (max-width: 360px) {
+    .top-right-btn {
+        font-size: 0.95rem;
+        padding: 6px 8px;
+        top: 10px;
+        right: 8px;
+    }
+}
+
+@media (max-height: 600px) {
+    .top-right-btn {
+        top: 8px;
+        right: 10px;
+    }
+}
+
+.top-right-btn {
+    transition: opacity 0.12s ease, transform 0.12s ease;
+}
+
+.top-right-btn[style*="display: none"] {
+    opacity: 0;
+}
+
+.top-right-btn[style*="display: inline-block"] {
+    opacity: 1;
+}
+
 @media (max-width: 900px) {
     #board {
         width: 98vw;
