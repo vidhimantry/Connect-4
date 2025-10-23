@@ -31,8 +31,8 @@
 
 **1. Clone the repository**  
 ```sh
-git clone https://github.com/vidhimantry/tic-tac-toe.git
-cd tic-tac-toe
+git clone https://github.com/vidhimantry/Connect-4.git
+cd Connect-4
 ```
 **2. Open the game** <br>
 Simply open the index.html file in any preferred browser.
