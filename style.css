@@ -180,6 +180,10 @@ footer {
         min-width: 44px;
         min-height: 44px;
     }
+    #new-game-btn {
+        position:static;
+        margin-bottom: 24px;
+    }
 }
 
 @media (max-width: 360px) {
